@@ -6,18 +6,18 @@ public class MoveOnRail : MonoBehaviour
 {
     public Route currentRoute;
 
-    int routePosition;
+    public float speed = 10f;
 
     public int steps;
 
-    public float speed = 10f; 
+    int routePosition;
 
     bool isMoving;
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Space) && !isMoving)
         {
-            steps = Random.Range(1, 13);
+            steps = Random.Range(1, 11);
             Debug.Log("주사위 숫자 : " + steps);
 
             StartCoroutine(Move());
@@ -35,6 +35,8 @@ public class MoveOnRail : MonoBehaviour
 
         while(steps > 0)
         {
+            // 지나가면서 해야되는 이벤트 있는지(칸번호 확인)
+            
             
             //if (routePosition != )
             routePosition++;
@@ -49,6 +51,7 @@ public class MoveOnRail : MonoBehaviour
             steps--;
         }
         isMoving = false;
+        // 멈춘 칸 이벤트 실행(칸번호 확인)
     }
 
     bool MoveToNextNode(Vector3 target)
