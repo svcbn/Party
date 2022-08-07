@@ -17,11 +17,9 @@ public class MoveOnRail : MonoBehaviour
     public bool canPass;
     public bool isMoving;
 
-    GameObject diceFactory;
     private void Awake()
     {
         Instance = this;
-        diceFactory = (GameObject)Resources.Load("d10");
     }
 
     void Update()
@@ -35,14 +33,10 @@ public class MoveOnRail : MonoBehaviour
 
     IEnumerator RollDice()
     {
-        //steps = Random.Range(1, 11);
+        yield return null;
+        steps = Random.Range(1, 11);
         //steps = 100;                      // 테스트주사위!!!!!!!!!!!!!
-        GameObject dice = Instantiate(diceFactory);
-        dice.transform.position = GameObject.Find("DicePoint").transform.position;
-        int diceNum = dice.GetComponent<Die>().value;
-        yield return new WaitForSeconds(5f);
-        // 주사위의 value 값 받아오기;
-        steps = dice.GetComponent<Die>().value;
+        
         Debug.Log("주사위 숫자 : " + steps);
 
         StartCoroutine(Move());
