@@ -7,7 +7,11 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
+<<<<<<< Updated upstream
       "Photon3Unity3D/4.1.6.17": {
+=======
+      "Photon3Unity3D/4.1.6.11": {
+>>>>>>> Stashed changes
         "dependencies": {
           "NETStandard.Library": "2.0.3"
         },
@@ -24,7 +28,11 @@
     }
   },
   "libraries": {
+<<<<<<< Updated upstream
     "Photon3Unity3D/4.1.6.17": {
+=======
+    "Photon3Unity3D/4.1.6.11": {
+>>>>>>> Stashed changes
       "type": "project",
       "serviceable": false,
       "sha512": ""

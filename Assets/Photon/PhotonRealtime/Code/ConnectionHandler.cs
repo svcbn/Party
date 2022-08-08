@@ -40,11 +40,19 @@ namespace Photon.Realtime
         /// <remarks>
         /// If set to true, the thread will disconnect the client regularly, should the client not call SendOutgoingCommands / Service.
         /// This may happen due to an app being in background (and not getting a lot of CPU time) or when loading assets.
+<<<<<<< Updated upstream
         ///
         /// If false, a regular timeout time will have to pass (on top) to time out the client.
         /// </remarks>
         public bool DisconnectAfterKeepAlive = false;
 
+=======
+        /// 
+        /// If false, a regular timeout time will have to pass (on top) to time out the client.
+        /// </remarks>
+        public bool DisconnectAfterKeepAlive = false;
+        
+>>>>>>> Stashed changes
         /// <summary>Defines for how long the Fallback Thread should keep the connection, before it may time out as usual.</summary>
         /// <remarks>We want to the Client to keep it's connection when an app is in the background (and doesn't call Update / Service Clients should not keep their connection indefinitely in the background, so after some milliseconds, the Fallback Thread should stop keeping it up.</remarks>
         public int KeepAliveInBackground = 60000;
@@ -57,7 +65,11 @@ namespace Photon.Realtime
         {
             get { return this.fallbackThreadId < 255; }
         }
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
         /// <summary>Keeps the ConnectionHandler, even if a new scene gets loaded.</summary>
         public bool ApplyDontDestroyOnLoad = true;
 
@@ -112,7 +124,11 @@ namespace Photon.Realtime
             {
                 if (this.Client != null && this.Client.IsConnected)
                 {
+<<<<<<< Updated upstream
                     this.Client.Disconnect(DisconnectCause.ApplicationQuit);
+=======
+                    this.Client.Disconnect();
+>>>>>>> Stashed changes
                     this.Client.LoadBalancingPeer.StopThread();
                 }
 
@@ -171,7 +187,11 @@ namespace Photon.Realtime
                         backgroundStopwatch.Reset();
                         backgroundStopwatch.Start();
                     }
+<<<<<<< Updated upstream
 
+=======
+                    
+>>>>>>> Stashed changes
                     // check if the client should disconnect after some seconds in background
                     if (backgroundStopwatch.ElapsedMilliseconds > this.KeepAliveInBackground)
                     {
@@ -181,7 +201,11 @@ namespace Photon.Realtime
                         }
                         return true;
                     }
+<<<<<<< Updated upstream
 
+=======
+                    
+>>>>>>> Stashed changes
 
                     this.didSendAcks = true;
                     this.CountSendAcksOnly++;

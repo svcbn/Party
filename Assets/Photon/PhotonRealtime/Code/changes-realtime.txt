@@ -3,6 +3,7 @@ Photon Realtime C# Client - Changelog
 Exit Games GmbH - www.photonengine.com - forum.photonengine.com
 
 
+<<<<<<< Updated upstream
 Version 4.1.6.17 (02. August 2022)
     Added: DisconnectCause.ApplicationQuit. Can be used when your app disconnects on application quit: lbc.Disconnect(DisconnectCause.ApplicationQuit).
     Note: The ConnectionHandler will use this to differentiate a regular disconnect from one that is triggered by Unity / app-quit.
@@ -18,6 +19,8 @@ Version 4.1.6.15 (10. June 2022)
 Version 4.1.6.14 (26. April 2022)
     Added: Warning log if SocketWebTcp could not be found at runtime in Unity WebGL exports.
 
+=======
+>>>>>>> Stashed changes
 Version 4.1.6.11 (22. November 2021)
     Changed: For Unity, PhotonEditorUtils.IsPrefab to use the correct prefab stage utility for Unity 2021.2 and up.
     Added: CustomAuthenticationType.Epic to authenticate via Epic Online Services (EOS).

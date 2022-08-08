@@ -31,6 +31,12 @@ namespace Photon.Chat
     public class ChatAppSettings
     {
         /// <summary>AppId for the Chat Api.</summary>
+<<<<<<< Updated upstream
+=======
+        #if SUPPORTED_UNITY
+        [FormerlySerializedAs("AppId")]
+        #endif
+>>>>>>> Stashed changes
         public string AppIdChat;
 
         /// <summary>The AppVersion can be used to identify builds and will split the AppId distinct "Virtual AppIds" (important for the users to find each other).</summary>
@@ -45,9 +51,12 @@ namespace Photon.Chat
         /// <summary>If not null, this sets the port of the first Photon server to connect to (that will "forward" the client as needed).</summary>
         public ushort Port;
 
+<<<<<<< Updated upstream
         /// <summary>The address (hostname or IP and port) of the proxy server.</summary>
         public string ProxyServer;
 
+=======
+>>>>>>> Stashed changes
         /// <summary>The network level protocol to use.</summary>
         public ConnectionProtocol Protocol = ConnectionProtocol.Udp;
 
@@ -60,5 +69,17 @@ namespace Photon.Chat
 
         /// <summary>If true, the default nameserver address for the Photon Cloud should be used.</summary>
         public bool IsDefaultNameServer { get { return string.IsNullOrEmpty(this.Server); } }
+<<<<<<< Updated upstream
+=======
+
+
+        /// <summary>Available to not immediately break compatibility.</summary>
+        [Obsolete("Use AppIdChat instead.")]
+        public string AppId
+        {
+            get { return this.AppIdChat; }
+            set { this.AppIdChat = value; }
+        }
+>>>>>>> Stashed changes
     }
 }

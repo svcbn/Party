@@ -48,7 +48,11 @@ namespace Photon.Pun
 
         /// <summary>Limits the number of datagrams that are created in each LateUpdate.</summary>
         /// <remarks>Helps spreading out sending of messages minimally.</remarks>
+<<<<<<< Updated upstream
         public static int MaxDatagrams = 10;
+=======
+        public static int MaxDatagrams = 3;
+>>>>>>> Stashed changes
 
         /// <summary>Signals that outgoing messages should be sent in the next LateUpdate call.</summary>
         /// <remarks>Up to MaxDatagrams are created to send queued messages.</remarks>
@@ -184,10 +188,13 @@ namespace Photon.Pun
                     sendCounter++;
                     Profiler.EndSample();
                 }
+<<<<<<< Updated upstream
                 if (sendCounter >= MaxDatagrams)
                 {
                     SendAsap = true;
                 }
+=======
+>>>>>>> Stashed changes
 
                 this.nextSendTickCount = currentMsSinceStart + this.UpdateInterval;
             }

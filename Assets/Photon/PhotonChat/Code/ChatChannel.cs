@@ -67,15 +67,22 @@ namespace Photon.Chat
         /// <summary>Subscribed users.</summary>
         public readonly HashSet<string> Subscribers = new HashSet<string>();
 
+<<<<<<< Updated upstream
         /// <summary> Properties of subscribers </summary>
         private Dictionary<string, Dictionary<object, object>> usersProperties;
 
+=======
+>>>>>>> Stashed changes
         /// <summary>Used internally to create new channels. This does NOT create a channel on the server! Use ChatClient.Subscribe.</summary>
         public ChatChannel(string name)
         {
             this.Name = name;
         }
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
         /// <summary>Used internally to add messages to this channel.</summary>
         public void Add(string sender, object message, int msgId)
         {
@@ -157,6 +164,7 @@ namespace Photon.Chat
             }
         }
 
+<<<<<<< Updated upstream
         internal bool AddSubscribers(string[] users)
         {
             if (users == null)
@@ -219,6 +227,29 @@ namespace Photon.Chat
         internal bool TryGetChannelProperty<T>(object propertyKey, out T propertyValue)
         {
             propertyValue = default;
+=======
+        internal void AddSubscribers(string[] users)
+        {
+            if (users == null)
+            {
+                return;
+            }
+            for (int i = 0; i < users.Length; i++)
+            {
+                this.Subscribers.Add(users[i]);
+            }
+        }
+
+        #if CHAT_EXTENDED
+        internal void ReadUserProperties(string userId, Dictionary<object, object> changedProperties)
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        internal bool TryGetChannelProperty<T>(object propertyKey, out T propertyValue)
+        {
+            propertyValue = default(T);
+>>>>>>> Stashed changes
             object temp;
             if (properties != null && properties.TryGetValue(propertyKey, out temp) && temp is T)
             {
@@ -228,6 +259,7 @@ namespace Photon.Chat
             return false;
         }
 
+<<<<<<< Updated upstream
         internal bool TryGetUserProperty<T>(string userId, object propertyKey, out T propertyValue)
         {
             propertyValue = default;
@@ -241,15 +273,20 @@ namespace Photon.Chat
             return false;
         }
 
+=======
+>>>>>>> Stashed changes
         public bool TryGetCustomChannelProperty<T>(string propertyKey, out T propertyValue)
         {
             return this.TryGetChannelProperty(propertyKey, out propertyValue);
         }
+<<<<<<< Updated upstream
 
         public bool TryGetCustomUserProperty<T>(string userId, string propertyKey, out T propertyValue)
         {
             return this.TryGetUserProperty(userId, propertyKey, out propertyValue);
         }
+=======
+>>>>>>> Stashed changes
         #endif
     }
 }

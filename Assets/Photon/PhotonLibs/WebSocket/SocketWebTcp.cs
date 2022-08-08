@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 #if UNITY_WEBGL || WEBSOCKET || WEBSOCKET_PROXYCONFIG
+=======
+#if UNITY_WEBGL || WEBSOCKET || ((UNITY_XBOXONE || UNITY_GAMECORE) && UNITY_EDITOR)
+>>>>>>> Stashed changes
 
 // --------------------------------------------------------------------------------------------------------------------
 // <copyright file="SocketWebTcp.cs" company="Exit Games GmbH">
@@ -16,9 +20,21 @@ namespace ExitGames.Client.Photon
     using System;
     using System.Collections;
     using UnityEngine;
+<<<<<<< Updated upstream
     using SupportClassPun = SupportClass;
 
 
+=======
+    using SupportClassPun = ExitGames.Client.Photon.SupportClass;
+
+
+    #if !(UNITY_WEBGL || NETFX_CORE)
+    using System.Net;
+    using System.Net.Sockets;
+    using System.Threading;
+    #endif
+
+>>>>>>> Stashed changes
     /// <summary>
     /// Yield Instruction to Wait for real seconds. Very important to keep connection working if Time.TimeScale is altered, we still want accurate network events
     /// </summary>
@@ -50,10 +66,16 @@ namespace ExitGames.Client.Photon
         public SocketWebTcp(PeerBase npeer) : base(npeer)
         {
             this.ServerAddress = npeer.ServerAddress;
+<<<<<<< Updated upstream
             this.ProxyServerAddress = npeer.ProxyServerAddress;
             if (this.ReportDebugOfLevel(DebugLevel.INFO))
             {
                 this.Listener.DebugReturn(DebugLevel.INFO, "new SocketWebTcp() for Unity. Server: " + this.ServerAddress + (String.IsNullOrEmpty(this.ProxyServerAddress) ? "" : ", Proxy: " + this.ProxyServerAddress));
+=======
+            if (this.ReportDebugOfLevel(DebugLevel.INFO))
+            {
+                this.Listener.DebugReturn(DebugLevel.INFO, "new SocketWebTcp() for Unity. Server: " + this.ServerAddress);
+>>>>>>> Stashed changes
             }
 
             //this.Protocol = ConnectionProtocol.WebSocket;
@@ -68,6 +90,7 @@ namespace ExitGames.Client.Photon
             {
                 try
                 {
+<<<<<<< Updated upstream
                     if (this.sock.Connected)
                     {
                         this.sock.Close();
@@ -76,6 +99,13 @@ namespace ExitGames.Client.Photon
                 catch (Exception ex)
                 {
                     this.EnqueueDebugReturn(DebugLevel.INFO, "Exception in SocketWebTcp.Dispose(): " + ex);
+=======
+                    if (this.sock.Connected) this.sock.Close();
+                }
+                catch (Exception ex)
+                {
+                    this.EnqueueDebugReturn(DebugLevel.INFO, "Exception in Dispose(): " + ex);
+>>>>>>> Stashed changes
                 }
             }
 
@@ -84,7 +114,10 @@ namespace ExitGames.Client.Photon
         }
 
         GameObject websocketConnectionObject;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         public override bool Connect()
         {
             //bool baseOk = base.Connect();
@@ -96,7 +129,10 @@ namespace ExitGames.Client.Photon
 
             this.State = PhotonSocketState.Connecting;
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
             if (this.websocketConnectionObject != null)
             {
                 UnityEngine.Object.Destroy(this.websocketConnectionObject);
@@ -107,6 +143,7 @@ namespace ExitGames.Client.Photon
             this.websocketConnectionObject.hideFlags = HideFlags.HideInHierarchy;
             UnityEngine.Object.DontDestroyOnLoad(this.websocketConnectionObject);
 
+<<<<<<< Updated upstream
 
             this.ConnectAddress += "&IPv6"; // this makes the Photon Server return a host name for the next server (NS points to MS and MS points to GS)
 
@@ -252,6 +289,93 @@ namespace ExitGames.Client.Photon
             #endif
         }
 
+=======
+            #if UNITY_WEBGL || NETFX_CORE
+            this.sock = new WebSocket(new Uri(this.ConnectAddress), this.SerializationProtocol);
+            this.sock.Connect();
+
+            mb.StartCoroutine(this.ReceiveLoop());
+            #else
+
+            mb.StartCoroutine(this.DetectIpVersionAndConnect(mb));
+
+            #endif
+            return true;
+        }
+
+
+        #if !(UNITY_WEBGL || NETFX_CORE)
+        private bool ipVersionDetectDone;
+        private IEnumerator DetectIpVersionAndConnect(MonoBehaviour mb)
+        {
+            Uri uri = null;
+            try
+            {
+                uri = new Uri(this.ConnectAddress);
+            }
+            catch (Exception ex)
+            {
+                if (this.ReportDebugOfLevel(DebugLevel.ERROR))
+                {
+                    this.Listener.DebugReturn(DebugLevel.ERROR, "Failed to create a URI from ConnectAddress (" + ConnectAddress + "). Exception: " + ex);
+                }
+            }
+
+            if (uri != null && uri.HostNameType == UriHostNameType.Dns)
+            {
+                ipVersionDetectDone = false;
+
+                ThreadPool.QueueUserWorkItem(this.DetectIpVersion, uri.Host);
+
+                while (!this.ipVersionDetectDone)
+                {
+                    yield return new WaitForRealSeconds(0.1f);
+                }
+            }
+
+            if (this.AddressResolvedAsIpv6)
+            {
+                this.ConnectAddress += "&IPv6";
+            }
+
+            if (this.ReportDebugOfLevel(DebugLevel.INFO))
+            {
+                this.Listener.DebugReturn(DebugLevel.INFO, "DetectIpVersionAndConnect() AddressResolvedAsIpv6: " + this.AddressResolvedAsIpv6 + " ConnectAddress: " + ConnectAddress);
+            }
+
+
+            this.sock = new WebSocket(new Uri(this.ConnectAddress), this.SerializationProtocol);
+            this.sock.Connect();
+
+            mb.StartCoroutine(this.ReceiveLoop());
+        }
+
+        // state has to be the hostname string
+        private void DetectIpVersion(object state)
+        {
+            string host = state as string;
+            IPAddress[] ipAddresses;
+            try
+            {
+                ipAddresses = Dns.GetHostAddresses(host);
+                foreach (IPAddress ipAddress in ipAddresses)
+                {
+                    if (ipAddress.AddressFamily == AddressFamily.InterNetworkV6)
+                    {
+                        this.AddressResolvedAsIpv6 = true;
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Listener.DebugReturn(DebugLevel.INFO, "DetectIpVersionAndConnect (uri: " + host + "= thread failed: " + ex);
+            }
+
+            this.ipVersionDetectDone = true;
+        }
+        #endif
+>>>>>>> Stashed changes
 
 
         public override bool Disconnect()
@@ -273,9 +397,14 @@ namespace ExitGames.Client.Photon
                     }
                     catch (Exception ex)
                     {
+<<<<<<< Updated upstream
                         this.Listener.DebugReturn(DebugLevel.ERROR, "Exception in SocketWebTcp.Disconnect(): " + ex);
                     }
 
+=======
+                        this.Listener.DebugReturn(DebugLevel.ERROR, "Exception in Disconnect(): " + ex);
+                    }
+>>>>>>> Stashed changes
                     this.sock = null;
                 }
             }
@@ -308,10 +437,17 @@ namespace ExitGames.Client.Photon
                     data = trimmedData;
                 }
 
+<<<<<<< Updated upstream
                 //if (this.ReportDebugOfLevel(DebugLevel.ALL))
                 //{
                 //    this.Listener.DebugReturn(DebugLevel.ALL, "Sending: " + SupportClassPun.ByteArrayToString(data));
                 //}
+=======
+                if (this.ReportDebugOfLevel(DebugLevel.ALL))
+                {
+                    this.Listener.DebugReturn(DebugLevel.ALL, "Sending: " + SupportClassPun.ByteArrayToString(data));
+                }
+>>>>>>> Stashed changes
 
                 if (this.sock != null)
                 {
@@ -350,11 +486,19 @@ namespace ExitGames.Client.Photon
                     yield return new WaitForRealSeconds(0.1f);
                 }
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                 if (this.sock != null)
                 {
                     if (this.sock.Error != null)
                     {
+<<<<<<< Updated upstream
                         this.Listener.DebugReturn(DebugLevel.ERROR, "Exiting receive thread. Server: " + this.ServerAddress + " Error: " + this.sock.Error);
+=======
+                        this.Listener.DebugReturn(DebugLevel.ERROR, "Exiting receive thread. Server: " + this.ServerAddress + ":" + this.ServerPort + " Error: " + this.sock.Error);
+>>>>>>> Stashed changes
                         this.HandleException(StatusCode.ExceptionOnConnect);
                     }
                     else
@@ -374,7 +518,11 @@ namespace ExitGames.Client.Photon
                             {
                                 if (this.sock.Error != null)
                                 {
+<<<<<<< Updated upstream
                                     this.Listener.DebugReturn(DebugLevel.ERROR, "Exiting receive thread (inside loop). Server: " + this.ServerAddress + " Error: " + this.sock.Error);
+=======
+                                    this.Listener.DebugReturn(DebugLevel.ERROR, "Exiting receive thread (inside loop). Server: " + this.ServerAddress + ":" + this.ServerPort + " Error: " + this.sock.Error);
+>>>>>>> Stashed changes
                                     this.HandleException(StatusCode.ExceptionOnReceive);
                                     break;
                                 }
@@ -388,10 +536,17 @@ namespace ExitGames.Client.Photon
                                         continue;
                                     }
 
+<<<<<<< Updated upstream
                                     //if (this.ReportDebugOfLevel(DebugLevel.ALL))
                                     //{
                                     //    this.Listener.DebugReturn(DebugLevel.ALL, "TCP << " + inBuff.Length + " = " + SupportClassPun.ByteArrayToString(inBuff));
                                     //}
+=======
+                                    if (this.ReportDebugOfLevel(DebugLevel.ALL))
+                                    {
+                                        this.Listener.DebugReturn(DebugLevel.ALL, "TCP << " + inBuff.Length + " = " + SupportClassPun.ByteArrayToString(inBuff));
+                                    }
+>>>>>>> Stashed changes
 
                                     if (inBuff.Length > 0)
                                     {
@@ -422,6 +577,7 @@ namespace ExitGames.Client.Photon
             this.Disconnect();
         }
 
+<<<<<<< Updated upstream
 
         private class MonoBehaviourExt : MonoBehaviour
         {
@@ -430,4 +586,10 @@ namespace ExitGames.Client.Photon
 }
 
 
+=======
+        private class MonoBehaviourExt : MonoBehaviour { }
+    }
+}
+
+>>>>>>> Stashed changes
 #endif

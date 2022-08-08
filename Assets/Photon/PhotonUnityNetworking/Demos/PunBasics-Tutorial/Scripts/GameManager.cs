@@ -141,9 +141,15 @@ namespace Photon.Pun.Demo.PunBasics
 
 		#region Public Methods
 
+<<<<<<< Updated upstream
 		public bool LeaveRoom()
 		{
 			return PhotonNetwork.LeaveRoom();
+=======
+		public void LeaveRoom()
+		{
+			PhotonNetwork.LeaveRoom();
+>>>>>>> Stashed changes
 		}
 
 		public void QuitApplication()

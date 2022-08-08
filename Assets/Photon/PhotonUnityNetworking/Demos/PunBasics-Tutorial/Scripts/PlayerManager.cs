@@ -121,7 +121,10 @@ namespace Photon.Pun.Demo.PunBasics
 			#endif
 		}
 
+<<<<<<< Updated upstream
         private bool leavingRoom;
+=======
+>>>>>>> Stashed changes
 
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity on every frame.
@@ -136,9 +139,15 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 this.ProcessInputs();
 
+<<<<<<< Updated upstream
                 if (this.Health <= 0f && !this.leavingRoom)
                 {
                     this.leavingRoom = GameManager.Instance.LeaveRoom();
+=======
+                if (this.Health <= 0f)
+                {
+                    GameManager.Instance.LeaveRoom();
+>>>>>>> Stashed changes
                 }
             }
 
@@ -148,11 +157,14 @@ namespace Photon.Pun.Demo.PunBasics
             }
         }
 
+<<<<<<< Updated upstream
         public override void OnLeftRoom()
         {
             this.leavingRoom = false;
         }
 
+=======
+>>>>>>> Stashed changes
         /// <summary>
         /// MonoBehaviour method called when the Collider 'other' enters the trigger.
         /// Affect Health of the Player if the collider is a beam

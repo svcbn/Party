@@ -3,6 +3,7 @@ Photon C# Client Library - Changelog
 Exit Games GmbH - www.photonengine.com - forum.photonengine.com
 
 
+<<<<<<< Updated upstream
 Version 4.1.6.17 (02. August 2022 - rev6472)
     Changed: SequenceDeltaLimitResends to 100 and SequenceDeltaLimitSends to 75.
 
@@ -37,6 +38,10 @@ Version 4.1.6.12 (30. November 2021 - rev6299)
 
 Version 4.1.6.11 (23. November 2021 - rev6288)
     Fixed: Payload encryption initialization (without DiffieHellman) for TCP connection.
+=======
+Version 4.1.6.11 (23. November 2021 - rev6288)
+	Fixed: Payload encryption initialization (without DiffieHellman) for TCP connection.
+>>>>>>> Stashed changes
     Fixed: Protocol16.DeserializeCustom() to check if length of read bytes is available (else, a byte[] is returned).
     Changed: Custom Type arrays will return UnknownType[] if the array's item-type is unknown. If the custom type is known but items do not read properly, they will be null.
     Added: Checks if each generated Custom Type instance can be assigned to the Custom Type array (and skips those that are null or can't be assigned).
@@ -49,7 +54,11 @@ Version 4.1.6.10 (21. October 2021 - rev6243)
     Added: Exception handling to OnEvent and OnOperationResponse calls.
 
 Version 4.1.6.9 (12. October 2021 - rev6231)
+<<<<<<< Updated upstream
     Fixed: Reliable UDP protocol to send pings, if no reliable command was acknowledged or sent recently. This bug was preventing a client timeout in some cases.
+=======
+	Fixed: Reliable UDP protocol to send pings, if no reliable command was acknowledged or sent recently. This bug was preventing a client timeout in some cases.
+>>>>>>> Stashed changes
 
 Version 4.1.6.8 (30. September 2021 - rev6222)
     Fixed: ReadCustomType to not use custom deserialization methods, should the reported size be less than available bytes.

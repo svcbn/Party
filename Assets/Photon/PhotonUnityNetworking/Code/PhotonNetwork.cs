@@ -64,7 +64,11 @@ namespace Photon.Pun
     public static partial class PhotonNetwork
     {
         /// <summary>Version number of PUN. Used in the AppVersion, which separates your playerbase in matchmaking.</summary>
+<<<<<<< Updated upstream
         public const string PunVersion = "2.41";
+=======
+        public const string PunVersion = "2.40";
+>>>>>>> Stashed changes
 
         /// <summary>Version number of your game. Setting this updates the AppVersion, which separates your playerbase in matchmaking.</summary>
         /// <remarks>

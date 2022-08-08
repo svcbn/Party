@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
   AppSettings:
+<<<<<<< Updated upstream
     AppIdRealtime: 777ccee4-97e0-4e50-b723-08ef01dd48e2
+=======
+    AppIdRealtime: 75bce1a9-6d30-4233-9cf0-e9cd63b03e53
+>>>>>>> Stashed changes
     AppIdFusion: 
     AppIdChat: 
     AppIdVoice: 
@@ -39,6 +43,15 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+<<<<<<< Updated upstream
+=======
+  - FireBullet
+  - ShowBulletPieces
+  - RPCOnDamaged
+  - RpcAddChat
+  - SetPlayerTurn
+  - FireBullet2
+>>>>>>> Stashed changes
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

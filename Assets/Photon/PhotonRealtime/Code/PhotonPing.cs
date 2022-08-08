@@ -33,8 +33,13 @@ namespace Photon.Realtime
     #endif
 
     #if UNITY_WEBGL
+<<<<<<< Updated upstream
     // import UnityWebRequest
     using UnityEngine.Networking;
+=======
+    // import WWW class
+    using UnityEngine;
+>>>>>>> Stashed changes
     #endif
 
     /// <summary>
@@ -449,15 +454,23 @@ namespace Photon.Realtime
     #if UNITY_WEBGL
     public class PingHttp : PhotonPing
     {
+<<<<<<< Updated upstream
         private UnityWebRequest webRequest;
+=======
+        private WWW webRequest;
+>>>>>>> Stashed changes
 
         public override bool StartPing(string address)
         {
             base.Init();
 
             address = "https://" + address + "/photon/m/?ping&r=" + UnityEngine.Random.Range(0, 10000);
+<<<<<<< Updated upstream
             this.webRequest = UnityWebRequest.Get(address);
             this.webRequest.SendWebRequest();
+=======
+            this.webRequest = new WWW(address);
+>>>>>>> Stashed changes
             return true;
         }
 

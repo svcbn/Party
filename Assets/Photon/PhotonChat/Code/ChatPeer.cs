@@ -125,6 +125,20 @@ namespace Photon.Chat
             }
         }
 
+<<<<<<< Updated upstream
+=======
+        /// <summary> Connects to NameServer. </summary>
+        /// <returns>If the connection attempt could be sent.</returns>
+        public bool Connect()
+        {
+            if (this.DebugOut >= DebugLevel.INFO)
+            {
+                this.Listener.DebugReturn(DebugLevel.INFO, "Connecting to nameserver " + this.NameServerAddress);
+            }
+
+            return this.Connect(this.NameServerAddress, "NameServer");
+        }
+>>>>>>> Stashed changes
 
         /// <summary> Authenticates on NameServer. </summary>
         /// <returns>If the authentication operation request could be sent.</returns>

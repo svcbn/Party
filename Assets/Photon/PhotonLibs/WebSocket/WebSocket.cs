@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 ﻿#if UNITY_WEBGL || WEBSOCKET || WEBSOCKET_PROXYCONFIG
+=======
+﻿#if UNITY_WEBGL || WEBSOCKET || ((UNITY_XBOXONE || UNITY_GAMECORE) && UNITY_EDITOR)
+>>>>>>> Stashed changes
 
 // --------------------------------------------------------------------------------------------------------------------
 // <summary>
@@ -12,8 +16,11 @@ namespace ExitGames.Client.Photon
 {
     using System;
     using System.Text;
+<<<<<<< Updated upstream
     using ExitGames.Client.Photon;
 
+=======
+>>>>>>> Stashed changes
     #if UNITY_WEBGL && !UNITY_EDITOR
     using System.Runtime.InteropServices;
     #else
@@ -26,6 +33,7 @@ namespace ExitGames.Client.Photon
     public class WebSocket
     {
         private Uri mUrl;
+<<<<<<< Updated upstream
         private string mProxyAddress;
 
         /// <summary>Photon uses this to agree on a serialization protocol. Either: GpBinaryV16 or GpBinaryV18. Based on enum SerializationProtocol.</summary>
@@ -41,10 +49,22 @@ namespace ExitGames.Client.Photon
             if (protocols != null)
             {
                 this.protocols = protocols;
+=======
+        /// <summary>Photon uses this to agree on a serialization protocol. Either: GpBinaryV16 or GpBinaryV18. Based on enum SerializationProtocol.</summary>
+        private string protocols = "GpBinaryV16";
+
+        public WebSocket(Uri url, string serialization = null)
+        {
+            this.mUrl = url;
+            if (serialization != null)
+            {
+                this.protocols = serialization;
+>>>>>>> Stashed changes
             }
 
             string protocol = mUrl.Scheme;
             if (!protocol.Equals("ws") && !protocol.Equals("wss"))
+<<<<<<< Updated upstream
             {
                 throw new ArgumentException("Unsupported protocol: " + protocol);
             }
@@ -53,11 +73,18 @@ namespace ExitGames.Client.Photon
         public string ProxyAddress
         {
             get { return mProxyAddress; }
+=======
+                throw new ArgumentException("Unsupported protocol: " + protocol);
+>>>>>>> Stashed changes
         }
 
         public void SendString(string str)
         {
+<<<<<<< Updated upstream
             Send(Encoding.UTF8.GetBytes(str));
+=======
+            Send(Encoding.UTF8.GetBytes (str));
+>>>>>>> Stashed changes
         }
 
         public string RecvString()
@@ -65,10 +92,17 @@ namespace ExitGames.Client.Photon
             byte[] retval = Recv();
             if (retval == null)
                 return null;
+<<<<<<< Updated upstream
             return Encoding.UTF8.GetString(retval);
         }
 
         #if UNITY_WEBGL && !UNITY_EDITOR
+=======
+            return Encoding.UTF8.GetString (retval);
+        }
+
+    #if UNITY_WEBGL && !UNITY_EDITOR
+>>>>>>> Stashed changes
         [DllImport("__Internal")]
         private static extern int SocketCreate (string url, string protocols);
 
@@ -138,12 +172,17 @@ namespace ExitGames.Client.Photon
                 return Encoding.UTF8.GetString (buffer);
             }
         }
+<<<<<<< Updated upstream
         #else
+=======
+    #else
+>>>>>>> Stashed changes
         WebSocketSharp.WebSocket m_Socket;
         Queue<byte[]> m_Messages = new Queue<byte[]>();
         bool m_IsConnected = false;
         string m_Error = null;
 
+<<<<<<< Updated upstream
 
         public void Connect()
         {
@@ -203,6 +242,18 @@ namespace ExitGames.Client.Photon
 
             this.m_Socket.OnClose += SocketOnClose;
 
+=======
+        public void Connect()
+        {
+            m_Socket = new WebSocketSharp.WebSocket(mUrl.ToString(), new string[] { this.protocols });
+            m_Socket.SslConfiguration.EnabledSslProtocols = m_Socket.SslConfiguration.EnabledSslProtocols | (SslProtocols)(3072| 768);
+            m_Socket.OnMessage += (sender, e) => m_Messages.Enqueue(e.RawData);
+            m_Socket.OnOpen += (sender, e) => m_IsConnected = true;
+            //this.m_Socket.Log.Level = LogLevel.Debug;
+            //this.m_Socket.Log.Output += Output;
+            this.m_Socket.OnClose += SocketOnClose;
+            m_Socket.OnError += (sender, e) => m_Error = e.Message + (e.Exception == null ? "" : " / " + e.Exception);
+>>>>>>> Stashed changes
             m_Socket.ConnectAsync();
         }
 
@@ -219,10 +270,14 @@ namespace ExitGames.Client.Photon
             }
         }
 
+<<<<<<< Updated upstream
         public bool Connected
         {
             get { return m_IsConnected; }
         }
+=======
+        public bool Connected { get { return m_IsConnected; } }// added by TS
+>>>>>>> Stashed changes
 
 
         public void Send(byte[] buffer)
@@ -244,9 +299,18 @@ namespace ExitGames.Client.Photon
 
         public string Error
         {
+<<<<<<< Updated upstream
             get { return m_Error; }
         }
         #endif
+=======
+            get
+            {
+                return m_Error;
+            }
+        }
+    #endif
+>>>>>>> Stashed changes
     }
 }
 #endif

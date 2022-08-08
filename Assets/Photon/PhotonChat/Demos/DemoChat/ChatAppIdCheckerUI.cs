@@ -7,11 +7,17 @@
 
 using UnityEngine;
 
+<<<<<<< Updated upstream
 
 using UnityEngine.UI;
 #if PHOTON_UNITY_NETWORKING
 using Photon.Pun;
 #endif
+=======
+#if PHOTON_UNITY_NETWORKING
+using UnityEngine.UI;
+using Photon.Pun;
+>>>>>>> Stashed changes
 
 namespace Photon.Chat.Demo
 {
@@ -22,6 +28,7 @@ namespace Photon.Chat.Demo
     public class ChatAppIdCheckerUI : MonoBehaviour
     {
         public Text Description;
+<<<<<<< Updated upstream
         public bool WizardOpenedOnce;   // avoid opening the wizard again and again
 
         // TODO: maybe this can run on Start(), not on Update()?!
@@ -58,3 +65,37 @@ namespace Photon.Chat.Demo
         }
     }
 }
+=======
+
+        public void Update()
+        {
+            if (string.IsNullOrEmpty(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat))
+            {
+                if (this.Description != null)
+                {
+                    this.Description.text = "<Color=Red>WARNING:</Color>\nPlease setup a Chat AppId in the PhotonServerSettings file.";
+                }
+            }
+            else
+            {
+                if (this.Description != null)
+                {
+                    this.Description.text = string.Empty;
+                }
+            }
+        }
+    }
+}
+
+#else
+
+namespace Photon.Chat.Demo
+{
+    public class ChatAppIdCheckerUI : MonoBehaviour
+    {
+        // empty class. if PUN is not present, we currently don't check Chat-AppId "presence".
+    }
+}
+
+#endif
+>>>>>>> Stashed changes

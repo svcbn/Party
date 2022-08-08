@@ -224,7 +224,11 @@ namespace Photon.Pun
             // Also, within the context of a Unity Cloud Build, ServerSettings is already present anyway.
             #if UNITY_CLOUD_BUILD
             return;
+<<<<<<< Updated upstream
             #else
+=======
+            #endif
+>>>>>>> Stashed changes
 
             if (PhotonNetwork.PhotonServerSettings == null || PhotonNetwork.PhotonServerSettings.AppSettings == null || string.IsNullOrEmpty(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdRealtime))
             {
@@ -247,7 +251,10 @@ namespace Photon.Pun
                 PhotonNetwork.PhotonServerSettings.DisableAutoOpenWizard = true;
                 PhotonEditor.SaveSettings();
             }
+<<<<<<< Updated upstream
             #endif
+=======
+>>>>>>> Stashed changes
         }
 
 
