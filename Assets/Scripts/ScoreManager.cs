@@ -22,7 +22,7 @@ public class ScoreManager : MonoBehaviour
         set
         {
             p1Star = value;
-            p1StarUI.text = "Stars : " + p1Star + 1;
+            p1StarUI.text = "Stars : " + p1Star;
             PlayerPrefs.SetInt("p1Star", p1Star);
         }
     }
