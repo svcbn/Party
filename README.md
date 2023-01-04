@@ -1,7 +1,7 @@
-# Party (Fall Through)
+# Party (Stop in Progress)
 ###### MTVS 2nd Project 
 
-- 프로젝트명 : Party  
+- 프로젝트명 : Party (중단)  
 - 장르 : 파티 게임  
 - 개발 환경 : Unity, C#   
 - 작업 인원 : 2명   
