@@ -9,5 +9,5 @@
   
 ---  
 
-프로젝트 소개 [PPT](https://docs.google.com/presentation/d/e/2PACX-1vTx029ba3eM40h32ntY01t70OPbynLZ3RjOL7RN72FPjCuRqHvevOQBTBCDNBorfA/pub?start=false&loop=false&delayms=3000)  
+프로젝트 소개 - [PPT](https://docs.google.com/presentation/d/e/2PACX-1vTx029ba3eM40h32ntY01t70OPbynLZ3RjOL7RN72FPjCuRqHvevOQBTBCDNBorfA/pub?start=false&loop=false&delayms=3000)  
 
